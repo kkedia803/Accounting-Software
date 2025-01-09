@@ -9,14 +9,15 @@ const Page = () => {
         try {
             const formData = new FormData();
             uploadedFiles.forEach((file) => formData.append('files', file));
-    
+
             const response = await fetch('http://localhost:5000/api/files/upload', {
                 method: 'POST',
                 body: formData,
             });
-    
+
             if (response.ok) {
                 alert('Files uploaded successfully!');
+                setUploadedFiles([]);
             } else {
                 const errorData = await response.json();
                 console.error('Error:', errorData);
@@ -27,7 +28,7 @@ const Page = () => {
             alert('Error uploading files');
         }
     };
-    
+
 
     // Handle file upload (whether via input or drag-and-drop)
     const handleFileUpload = (files) => {
@@ -72,11 +73,11 @@ const Page = () => {
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 lg:items-center">
                         <div className="aspect-w-16 aspect-h-9 lg:aspect-none">
-                            <img className="w-full object-cover rounded-xl" src="https://img.freepik.com/free-photo/taking-photo-cooked-salmon-ai-generated-image_268835-6839.jpg?t=st=1732002029~exp=1732005629~hmac=a3b2214db3efbc2eedc56de4d6ae33aa4e63f90570ee7de8358e6df7e171f6cc&w=996" alt="Features Image" />
+                            <img className="w-full object-cover rounded-xl" src="https://img.freepik.com/free-photo/taking-photo-cooked-salmon-ai-generated-image_268835-6839.jpg?t=st=1732002029~exp=1732005629~hmac=a3b2214db3efbc2eedc56de4d6ae33aa4e63f90570ee7de8358e6df7e171f6cc&w=996" alt="Features" />
                         </div>
                         <div className="upload-section">
                             {/* Upload Button */}
-                            <div>
+                            {/* <div>
                                 <label
                                     className="group inline-flex items-center gap-x-2 py-6 px-10 bg-[#3D5300] font-medium text-base text-[#FFE31A] rounded-full focus:outline-none cursor-pointer"
                                 >
@@ -88,10 +89,10 @@ const Page = () => {
                                         className="hidden"
                                     />
                                 </label>
-                            </div>
+                            </div> */}
 
                             {/* Drag and Drop Section */}
-                            <div {...getRootProps()} className="mt-4 p-4 border-2 border-dashed border-neutral-600 rounded-lg bg-neutral-800 text-center text-white">
+                            <div {...getRootProps()} className="mt-4 p-10 border-2 border-dashed border-neutral-600 rounded-lg bg-neutral-800 text-center text-white">
                                 <input {...getInputProps()} />
                                 <p>Drag and drop files here, or click to select files</p>
                             </div>
@@ -120,12 +121,15 @@ const Page = () => {
                                 )}
                             </div>
                             {/* Upload All Button */}
-                            <button
-                                onClick={handleBulkUpload}
-                                className="mt-6 py-3 px-6 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-800"
-                            >
-                                Upload All Files
-                            </button>
+                            <div className="flex justify-center items-center">
+                                <button
+                                    onClick={handleBulkUpload}
+                                    className="mt-6 py-3 px-6 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-800"
+                                >
+                                    Upload All Files
+                                </button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
